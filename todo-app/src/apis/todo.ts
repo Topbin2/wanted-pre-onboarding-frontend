@@ -29,3 +29,11 @@ export const getTodos = async (): Promise<ITodo[] | undefined> => {
     alert(getErrorMessage(error));
   }
 };
+
+export const deleteTodo = async ({ id }: { id: number }): Promise<void> => {
+  try {
+    await axiosInstance.delete(`/todos/${id}`, authHeader());
+  } catch (error) {
+    alert(getErrorMessage(error));
+  }
+};

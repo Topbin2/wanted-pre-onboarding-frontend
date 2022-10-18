@@ -91,6 +91,7 @@ const Todo = () => {
             id={todo.id}
             todo={todo.todo}
             isCompleted={todo.isCompleted}
+            setTodos={setTodos}
           />
         ))}
       </UList>

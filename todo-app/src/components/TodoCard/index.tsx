@@ -1,5 +1,8 @@
 import styled from "styled-components";
 
+import { deleteTodo, getTodos } from "../../apis";
+import { ITodo } from "../../types";
+
 export const Container = styled.li`
   display: flex;
   justify-content: space-between;
@@ -49,9 +52,17 @@ interface Prop {
   id: number;
   todo: string;
   isCompleted: boolean;
+  setTodos: React.Dispatch<React.SetStateAction<ITodo[]>>;
 }
+const TodoCard = ({ id, todo, isCompleted, setTodos }: Prop) => {
+  const handleDelete = () => {
+    deleteTodo({ id })
+      .then(() => getTodos())
+      .then((data) => {
+        if (data) setTodos(data);
+      });
+  };
 
-const TodoCard = ({ id, todo, isCompleted }: Prop) => {
   return (
     <Container>
       <section>
@@ -60,7 +71,9 @@ const TodoCard = ({ id, todo, isCompleted }: Prop) => {
       </section>
       <ButtonsContainer>
         <button type="button">수정</button>
-        <button type="button">삭제</button>
+        <button type="button" onClick={handleDelete}>
+          삭제
+        </button>
       </ButtonsContainer>
     </Container>
   );
