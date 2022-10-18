@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useCallback, useState } from "react";
 
 type ValidateCallback = (value: string) => boolean;
 
@@ -8,24 +8,27 @@ type UseValidate = (
 
 export const useValidate: UseValidate = (validateCallback) => {
   const [value, setValue] = useState("");
-  const [error, setError] = useState(false);
-  const [isValidate, setIsValidate] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [isValid, setIsValid] = useState(false);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
+  const handleChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const { value } = e.target;
 
-    setValue(value);
+      setValue(value);
 
-    if (validateCallback(value)) {
-      setError(false);
-      setIsValidate(true);
-    }
+      if (validateCallback(value)) {
+        setIsError(false);
+        setIsValid(true);
+      }
 
-    if (!validateCallback(value)) {
-      setError(true);
-      setIsValidate(false);
-    }
-  };
+      if (!validateCallback(value)) {
+        setIsError(true);
+        setIsValid(false);
+      }
+    },
+    [validateCallback]
+  );
 
-  return [value, error, isValidate, handleChange];
+  return [value, isError, isValid, handleChange];
 };

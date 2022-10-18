@@ -14,9 +14,9 @@ import * as S from "./style";
 const Login = () => {
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
-  const [emailValue, emailError, isEmailValidate, handleEmail] =
+  const [emailValue, emailError, isEmailValid, handleEmail] =
     useValidate(emailValidation);
-  const [passwordValue, passwordError, isPasswordValidate, handlePassword] =
+  const [passwordValue, passwordError, isPasswordValid, handlePassword] =
     useValidate(passwordValidation);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -74,7 +74,7 @@ const Login = () => {
           errorMsg="비밀번호를 8글자 이상 입력해주세요."
           onChange={(e) => handlePassword(e)}
         />
-        <S.Button disabled={!isEmailValidate || !isPasswordValidate}>
+        <S.Button disabled={!isEmailValid || !isPasswordValid}>
           {isLogin ? "로그인" : "회원가입"}
         </S.Button>
       </S.Form>
