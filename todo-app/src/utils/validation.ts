@@ -9,6 +9,5 @@ export const passwordValidation = (value: string) => {
 };
 
 export const todoValidation = (value: string) => {
-  const { length } = value.trim();
-  return length > 0 && length < 16;
+  return value.trim().length > 0;
 };

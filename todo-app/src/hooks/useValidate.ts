@@ -9,7 +9,8 @@ type UseValidate = (
   boolean,
   boolean,
   (event: ChangeEvent<HTMLInputElement>) => void,
-  React.Dispatch<React.SetStateAction<string>>
+  React.Dispatch<React.SetStateAction<string>>,
+  React.Dispatch<React.SetStateAction<boolean>>
 ];
 
 export const useValidate: UseValidate = (validateCallback) => {
@@ -36,5 +37,5 @@ export const useValidate: UseValidate = (validateCallback) => {
     [validateCallback]
   );
 
-  return [value, isError, isValid, handleChange, setValue];
+  return [value, isError, isValid, handleChange, setValue, setIsError];
 };

@@ -36,7 +36,7 @@ export const UList = styled.ul`
   flex-direction: column;
   gap: 20px;
   padding: 0;
-  margin-top: 50px;
+  margin: 50px 0;
 `;
 
 const Todo = () => {
@@ -79,7 +79,7 @@ const Todo = () => {
           id="todo"
           value={todoValue}
           isError={todoError}
-          errorMsg="공백 없이 등록해주세요."
+          errorMsg="1글자 이상 입력해주세요."
           onChange={(e) => handleTodo(e)}
         />
         <Button disabled={!todoValid}>등록</Button>

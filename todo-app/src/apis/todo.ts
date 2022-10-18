@@ -37,3 +37,25 @@ export const deleteTodo = async ({ id }: { id: number }): Promise<void> => {
     alert(getErrorMessage(error));
   }
 };
+
+interface UpdateTodoPayload {
+  id: number;
+  todo: string;
+  isCompleted: boolean;
+}
+
+export const updateTodo = async ({
+  id,
+  todo,
+  isCompleted,
+}: UpdateTodoPayload): Promise<void> => {
+  try {
+    await axiosInstance.put(
+      `/todos/${id}`,
+      { todo, isCompleted },
+      authHeader()
+    );
+  } catch (error) {
+    alert(getErrorMessage(error));
+  }
+};
