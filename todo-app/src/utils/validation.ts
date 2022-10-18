@@ -7,3 +7,8 @@ export const emailValidation = (value: string) => {
 export const passwordValidation = (value: string) => {
   return value.trim().length > 7;
 };
+
+export const todoValidation = (value: string) => {
+  const { length } = value.trim();
+  return length > 0 && length < 16;
+};
