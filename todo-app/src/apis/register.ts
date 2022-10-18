@@ -5,14 +5,16 @@ import { addTokenToLocalStorage } from "../utils/localStorage";
 
 interface Payload {
   body: { email: string; password: string };
-  onSuccess: () => void;
+  onSuccess?: () => void;
 }
 
 export const signUp = async ({ body, onSuccess }: Payload): Promise<void> => {
   try {
     const { data } = await axiosInstance.post("/auth/signup", body);
+
     addTokenToLocalStorage(data);
-    onSuccess();
+
+    if (onSuccess) onSuccess();
   } catch (error) {
     alert(getErrorMessage(error));
   }
@@ -21,8 +23,10 @@ export const signUp = async ({ body, onSuccess }: Payload): Promise<void> => {
 export const signIn = async ({ body, onSuccess }: Payload): Promise<void> => {
   try {
     const { data } = await axiosInstance.post("/auth/signin", body);
+
     addTokenToLocalStorage(data);
-    onSuccess();
+
+    if (onSuccess) onSuccess();
   } catch (error) {
     alert(getErrorMessage(error));
   }
