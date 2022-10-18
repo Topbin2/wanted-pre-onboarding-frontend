@@ -47,12 +47,15 @@ const Todo = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    createTodo({ todo: todoValue })
-      .then(() => getTodos())
-      .then((data) => {
-        if (data) setTodos(data);
-        setTodoValue("");
-      });
+    createTodo({
+      todo: todoValue,
+      onSuccess: () => {
+        getTodos().then((data) => {
+          if (data) setTodos(data);
+          setTodoValue("");
+        });
+      },
+    });
   };
 
   useEffect(() => {

@@ -6,14 +6,16 @@ import { getErrorMessage } from "../utils/errorHandler";
 
 interface CreateTodoPayload {
   todo: string;
-  onSuccess?: () => void;
+  onSuccess: () => void;
 }
 
 export const createTodo = async ({
   todo,
+  onSuccess,
 }: CreateTodoPayload): Promise<void> => {
   try {
     await axiosInstance.post("/todos", { todo }, authHeader());
+    onSuccess();
   } catch (error) {
     alert(getErrorMessage(error));
   }
