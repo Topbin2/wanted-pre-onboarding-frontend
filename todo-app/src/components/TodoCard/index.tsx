@@ -5,6 +5,7 @@ import { useValidate } from "../../hooks";
 import { ITodo } from "../../types";
 import { todoValidation } from "../../utils";
 import Input from "../Input";
+import { ErrorModal, useModal } from "../Modal";
 import * as S from "./style";
 
 interface Prop {
@@ -25,14 +26,23 @@ const TodoCard = ({ id, todo, isCompleted, setTodos }: Prop) => {
     setTodoValue,
     setTodoError,
   ] = useValidate(todoValidation);
+  const { openModal } = useModal();
 
   const handleDelete = () => {
     if (!isEdit) {
-      deleteTodo({ id })
-        .then(() => getTodos())
-        .then((data) => {
-          if (data) setTodos(data);
-        });
+      openModal(
+        <ErrorModal
+          body="정말 삭제 하시겠습니까?"
+          buttonText="삭제"
+          callback={() =>
+            deleteTodo({ id })
+              .then(() => getTodos())
+              .then((data) => {
+                if (data) setTodos(data);
+              })
+          }
+        />
+      );
 
       return;
     }
