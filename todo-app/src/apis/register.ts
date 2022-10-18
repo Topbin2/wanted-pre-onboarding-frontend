@@ -1,25 +1,12 @@
 /* eslint-disable no-alert */
-import axios from "axios";
 
-import { axiosInstance } from "../utils";
+import { axiosInstance, getErrorMessage } from "../utils";
 import { addTokenToLocalStorage } from "../utils/localStorage";
 
 interface Payload {
   body: { email: string; password: string };
   onSuccess: () => void;
 }
-
-const getErrorMessage = (error: unknown) => {
-  if (axios.isAxiosError(error)) {
-    return error.response?.data.message;
-  }
-
-  if (error instanceof Error) {
-    return error.message;
-  }
-
-  return String(error);
-};
 
 export const signUp = async ({ body, onSuccess }: Payload): Promise<void> => {
   try {
