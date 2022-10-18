@@ -7,9 +7,9 @@ interface Prop {
   label?: string;
   id: string;
   value: string;
+  comment?: string;
   isError: boolean;
   errorMsg: string;
-  comment?: string;
   placeholder?: string;
   onChange: (
     e: React.ChangeEvent<HTMLInputElement>
@@ -21,16 +21,15 @@ const Input = ({
   label,
   id,
   value,
+  comment,
   isError,
   errorMsg,
-  comment,
   placeholder,
   onChange,
 }: Prop) => {
   return (
     <S.Container isError={isError}>
       {label && <S.Label htmlFor={id}>{label}</S.Label>}
-      {comment && <S.Comment>{comment}</S.Comment>}
       <S.InputContainer>
         <S.Input
           type={type}
@@ -47,6 +46,7 @@ const Input = ({
           </>
         )}
       </S.InputContainer>
+      {comment && <S.Comment>{comment}</S.Comment>}
     </S.Container>
   );
 };

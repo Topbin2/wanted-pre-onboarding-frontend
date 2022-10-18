@@ -35,25 +35,24 @@ export const Label = styled.label`
 
 export const Comment = styled.p`
   font-size: 0.8rem;
-  color: var(--black-600);
+  color: hsl(210, 8%, 35%);
   margin-bottom: 7px;
 `;
 
 export const Input = styled.input<{ isError: boolean }>`
   padding: 8px 10px;
-  margin-bottom: 10px;
   width: 100%;
   height: 35px;
   border: 1px solid rgb(186, 191, 196);
-  border-radius: 3px;
+  border-radius: 10px;
 
   &::placeholder {
     color: var(--black-300);
   }
 
   &:focus {
-    border-color: ${({ isError }) => !isError && "var(--blue-300)"};
-    outline: ${({ isError }) => !isError && "var(--blue-100) solid 4px"};
+    border-color: ${({ isError }) => !isError && "hsl(206, 90%, 69.5%)"};
+    outline: ${({ isError }) => !isError && "hsl(206, 96%, 90%) solid 4px"};
   }
 
   ${({ isError }) =>
