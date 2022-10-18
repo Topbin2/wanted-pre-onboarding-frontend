@@ -14,7 +14,6 @@ export const createTodo = async ({
 }: CreateTodoPayload): Promise<void> => {
   try {
     await axiosInstance.post("/todos", { todo }, authHeader());
-    getTodos();
   } catch (error) {
     alert(getErrorMessage(error));
   }

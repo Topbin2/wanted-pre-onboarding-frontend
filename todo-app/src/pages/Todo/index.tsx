@@ -47,8 +47,12 @@ const Todo = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    createTodo({ todo: todoValue });
-    setTodoValue("");
+    createTodo({ todo: todoValue })
+      .then(() => getTodos())
+      .then((data) => {
+        if (data) setTodos(data);
+        setTodoValue("");
+      });
   };
 
   useEffect(() => {
@@ -79,7 +83,12 @@ const Todo = () => {
       </Form>
       <UList>
         {todos.map((todo) => (
-          <TodoCard key={todo.id} />
+          <TodoCard
+            key={todo.id}
+            id={todo.id}
+            todo={todo.todo}
+            isCompleted={todo.isCompleted}
+          />
         ))}
       </UList>
     </Container>

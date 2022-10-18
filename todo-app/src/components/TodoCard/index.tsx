@@ -45,12 +45,18 @@ export const ButtonsContainer = styled.section`
   }
 `;
 
-const TodoCard = () => {
+interface Prop {
+  id: number;
+  todo: string;
+  isCompleted: boolean;
+}
+
+const TodoCard = ({ id, todo, isCompleted }: Prop) => {
   return (
     <Container>
       <section>
-        <input type="checkbox" checked readOnly />
-        <p>리액트 공부하기</p>
+        <input type="checkbox" checked={isCompleted} readOnly />
+        <p>{todo}</p>
       </section>
       <ButtonsContainer>
         <button type="button">수정</button>
