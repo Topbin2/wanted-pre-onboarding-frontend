@@ -7,3 +7,4 @@ npm start
 ```
 
 배포링크 
+https://wanted-pre-onboarding-frontend-psi.vercel.app/
