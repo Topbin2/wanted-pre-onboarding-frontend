@@ -4,7 +4,13 @@ type ValidateCallback = (value: string) => boolean;
 
 type UseValidate = (
   callback: ValidateCallback
-) => [string, boolean, boolean, (event: ChangeEvent<HTMLInputElement>) => void];
+) => [
+  string,
+  boolean,
+  boolean,
+  (event: ChangeEvent<HTMLInputElement>) => void,
+  React.Dispatch<React.SetStateAction<string>>
+];
 
 export const useValidate: UseValidate = (validateCallback) => {
   const [value, setValue] = useState("");
@@ -30,5 +36,5 @@ export const useValidate: UseValidate = (validateCallback) => {
     [validateCallback]
   );
 
-  return [value, isError, isValid, handleChange];
+  return [value, isError, isValid, handleChange, setValue];
 };
