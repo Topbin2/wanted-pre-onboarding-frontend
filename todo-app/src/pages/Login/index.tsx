@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 
+import { signIn, signUp } from "../../apis";
 import { Input } from "../../components";
 import { useValidate } from "../../hooks";
 import { emailValidation, passwordValidation } from "../../utils";
@@ -84,6 +85,18 @@ const Login = () => {
     checkPassword,
   ] = useValidate(passwordValidation);
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (isLogin) {
+      signIn({ email: emailValue, password: passwordValue });
+    }
+
+    if (!isLogin) {
+      signUp({ email: emailValue, password: passwordValue });
+    }
+  };
+
   return (
     <Container>
       <Tab isLogin={isLogin}>
@@ -94,7 +107,7 @@ const Login = () => {
           회원가입
         </button>
       </Tab>
-      <Form>
+      <Form onSubmit={(e) => handleSubmit(e)}>
         <Input
           type="text"
           label="이메일"
