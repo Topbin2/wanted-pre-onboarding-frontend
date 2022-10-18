@@ -1,43 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 
 import { createTodo, getTodos } from "../../apis";
 import { Button, Input, TodoCard } from "../../components";
 import { useValidate } from "../../hooks";
 import { ITodo } from "../../types";
 import { getTokenFromLocalStorage, todoValidation } from "../../utils";
-
-export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-  height: 100vh;
-`;
-
-export const Form = styled.form`
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-
-  & > div:first-child {
-    flex-basis: 80%;
-  }
-
-  & > button:last-child {
-    flex-basis: 20%;
-  }
-`;
-
-export const UList = styled.ul`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 0;
-  margin: 50px 0;
-`;
+import * as S from "./style";
 
 const Todo = () => {
   const navigate = useNavigate();
@@ -71,9 +40,9 @@ const Todo = () => {
   }, [navigate]);
 
   return (
-    <Container>
+    <S.Container>
       <h1>ToDo</h1>
-      <Form onSubmit={handleSubmit}>
+      <S.Form onSubmit={handleSubmit}>
         <Input
           type="text"
           id="todo"
@@ -83,8 +52,8 @@ const Todo = () => {
           onChange={(e) => handleTodo(e)}
         />
         <Button disabled={!todoValid}>등록</Button>
-      </Form>
-      <UList>
+      </S.Form>
+      <S.UList>
         {todos.map((todo) => (
           <TodoCard
             key={todo.id}
@@ -94,8 +63,8 @@ const Todo = () => {
             setTodos={setTodos}
           />
         ))}
-      </UList>
-    </Container>
+      </S.UList>
+    </S.Container>
   );
 };
 
