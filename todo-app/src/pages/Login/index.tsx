@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import { signIn, signUp } from "../../apis";
 import { Input } from "../../components";
 import { useValidate } from "../../hooks";
-import { emailValidation, passwordValidation } from "../../utils";
+import {
+  emailValidation,
+  getTokenFromLocalStorage,
+  passwordValidation,
+} from "../../utils";
 
 export const Container = styled.div`
   display: flex;
@@ -74,28 +79,38 @@ export const Tab = styled.section<{ isLogin: boolean }>`
 `;
 
 const Login = () => {
+  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
-  const [emailValue, emailError, isEmailValidate, handleEmail, checkEmail] =
+  const [emailValue, emailError, isEmailValidate, handleEmail] =
     useValidate(emailValidation);
-  const [
-    passwordValue,
-    passwordError,
-    isPasswordValidate,
-    handlePassword,
-    checkPassword,
-  ] = useValidate(passwordValidation);
+  const [passwordValue, passwordError, isPasswordValidate, handlePassword] =
+    useValidate(passwordValidation);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (isLogin) {
-      signIn({ email: emailValue, password: passwordValue });
+      signIn({
+        body: { email: emailValue, password: passwordValue },
+        onSuccess: () => navigate("/todo"),
+      });
     }
 
     if (!isLogin) {
-      signUp({ email: emailValue, password: passwordValue });
+      signUp({
+        body: { email: emailValue, password: passwordValue },
+        onSuccess: () => navigate("/todo"),
+      });
     }
   };
+
+  useEffect(() => {
+    const token = getTokenFromLocalStorage();
+
+    if (token) {
+      navigate("/todo");
+    }
+  }, [navigate]);
 
   return (
     <Container>
