@@ -7,6 +7,7 @@ type UseValidate = (
 ) => [
   string,
   boolean,
+  boolean,
   (event: ChangeEvent<HTMLInputElement>) => void,
   () => void
 ];
@@ -14,6 +15,7 @@ type UseValidate = (
 export const useValidate: UseValidate = (validateCallback) => {
   const [value, setValue] = useState("");
   const [error, setError] = useState(false);
+  const [isValidate, setIsValidate] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -22,10 +24,12 @@ export const useValidate: UseValidate = (validateCallback) => {
 
     if (validateCallback(value)) {
       setError(false);
+      setIsValidate(true);
     }
 
     if (!validateCallback(value)) {
       setError(true);
+      setIsValidate(false);
     }
   };
 
@@ -39,5 +43,5 @@ export const useValidate: UseValidate = (validateCallback) => {
     }
   };
 
-  return [value, error, handleChange, handleCheck];
+  return [value, error, isValidate, handleChange, handleCheck];
 };

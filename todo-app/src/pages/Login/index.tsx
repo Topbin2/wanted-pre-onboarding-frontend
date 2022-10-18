@@ -40,8 +40,9 @@ export const Button = styled.button`
   border-radius: 20px;
   transition: all 0.4s;
 
-  &:hover {
-    background-color: #013ca9;
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
   }
 `;
 
@@ -73,10 +74,15 @@ export const Tab = styled.section<{ isLogin: boolean }>`
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
-  const [emailValue, emailErorr, handleEmail, checkEmail] =
+  const [emailValue, emailError, isEmailValidate, handleEmail, checkEmail] =
     useValidate(emailValidation);
-  const [passwordValue, passwordError, handlePassword, checkPassword] =
-    useValidate(passwordValidation);
+  const [
+    passwordValue,
+    passwordError,
+    isPasswordValidate,
+    handlePassword,
+    checkPassword,
+  ] = useValidate(passwordValidation);
 
   return (
     <Container>
@@ -94,7 +100,7 @@ const Login = () => {
           label="이메일"
           id="이메일"
           value={emailValue}
-          isError={emailErorr}
+          isError={emailError}
           errorMsg="이메일 형식을 확인해주세요."
           onChange={(e) => handleEmail(e)}
         />
@@ -107,7 +113,9 @@ const Login = () => {
           errorMsg="비밀번호를 8글자 이상 입력해주세요."
           onChange={(e) => handlePassword(e)}
         />
-        <Button>{isLogin ? "로그인" : "회원가입"}</Button>
+        <Button disabled={!isEmailValidate || !isPasswordValidate}>
+          {isLogin ? "로그인" : "회원가입"}
+        </Button>
       </Form>
     </Container>
   );
