@@ -2,6 +2,8 @@ import { useState } from "react";
 import styled from "styled-components";
 
 import { Input } from "../../components";
+import { useValidate } from "../../hooks";
+import { emailValidation, passwordValidation } from "../../utils";
 
 export const Container = styled.div`
   display: flex;
@@ -71,8 +73,10 @@ export const Tab = styled.section<{ isLogin: boolean }>`
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
-  const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState(true);
+  const [emailValue, emailErorr, handleEmail, checkEmail] =
+    useValidate(emailValidation);
+  const [passwordValue, passwordError, handlePassword, checkPassword] =
+    useValidate(passwordValidation);
 
   return (
     <Container>
@@ -89,19 +93,19 @@ const Login = () => {
           type="text"
           label="이메일"
           id="이메일"
-          value={email}
-          isError={emailError}
+          value={emailValue}
+          isError={emailErorr}
           errorMsg="이메일 형식을 확인해주세요."
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => handleEmail(e)}
         />
         <Input
           type="password"
           label="비밀번호"
           id="비밀번호"
-          value={email}
-          isError={emailError}
+          value={passwordValue}
+          isError={passwordError}
           errorMsg="비밀번호를 8글자 이상 입력해주세요."
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => handlePassword(e)}
         />
         <Button>{isLogin ? "로그인" : "회원가입"}</Button>
       </Form>
